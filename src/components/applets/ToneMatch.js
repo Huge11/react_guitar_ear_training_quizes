@@ -15,15 +15,13 @@ function ToneMatch(){
   const [check, setCheck] = useState(false)
   const playTone = ()=> {Guitar.loopNote(note); Guitar.start()}
   const stopTone = () => Guitar.stop()
-  const checkNote = () => {
-    setCheck(true); 
-    stopTone()
-  }
-  const setUpGuitar = () => {
+  const checkNote = () => { stopTone(); setCheck(true) }
+  const setUpGuitar = async () => {
     stopTone()
     setCheck(false)
-    setNote(toneList[Math.floor(Math.random() * toneList.length)])
-    // Guitar.loopNote(note)
+    const newNote = toneList[Math.floor(Math.random() * toneList.length)]
+    await setNote(newNote)
+    console.log(`set up guitar with note ${newNote}`)
   }
 
   return (
