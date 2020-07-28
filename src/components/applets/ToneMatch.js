@@ -1,38 +1,36 @@
 import React, {useState} from 'react'
-import Guitar from 'utils/Guitar.js'
+// import Guitar from 'utils/GuitarPlayer.js'
+import { Guitar } from 'utils/guitarMap/index.js'
 
 // components
 import { 
   MDBBtn as Button
 } from 'mdbreact'
 
-const toneList = ['A1', 'A2', 'A3', 'As1', 'As2', 'As3', 'B1', 'B2',  'B3', 'C2', 'C3', 'C4', 'Cs2', 'Cs3', 'Cs4', 'D1',  'D2', 'D3', 'D4', 'Ds1', 'Ds2', 'Ds3', 'E1', 'E2',  'E3',  'F1', 'F2',  'F3', 'Fs1', 'Fs2', 'Fs3', 'G1',  'G2', 'G3',  'Gs1', 'Gs2', 'Gs3']
-
-
-
 function ToneMatch(){
-  const [note, setNote] = useState(toneList[Math.floor(Math.random() * toneList.length)])
-  const [check, setCheck] = useState(false)
-  const playTone = ()=> {Guitar.loopNote(note); Guitar.start()}
-  const stopTone = () => Guitar.stop()
-  const checkNote = () => { stopTone(); setCheck(true) }
-  const setUpGuitar = async () => {
-    stopTone()
-    setCheck(false)
-    const newNote = toneList[Math.floor(Math.random() * toneList.length)]
-    await setNote(newNote)
-    console.log(`set up guitar with note ${newNote}`)
+  const guitar = new Guitar()
+  const createToneMatchItems = (max=10) => {
+    const frets = []
+    for(let i=0; i<max; i++){
+      frets.push(guitar.getRandomFret())
+    }
+    return frets.map((fret, i) => {
+      return fret ? (
+        <div>
+          <h2>#{i+1}</h2>
+          <Button onClick={()=>fret.loopTone()}>Play Tone</Button>
+          <Button onClick={()=>fret.stopTone()}>Stop Tone</Button>
+          <Button onClick={e=>{e.target.innerText=fret.getTone().replace('s', '#'); e.target.disabled=true; fret.stopTone()}}>Check Answer</Button>
+        </div>
+      ) : <p>Error</p>
+    })
   }
 
   return (
     <div>
-      <h1>ToneMatch</h1>
-      <Button onClick={()=>{playTone()}} >Play Tone</Button>
-      <Button onClick={()=>{stopTone()}}>Stop Tone</Button>
-      <Button onClick={()=>{checkNote()}}>Check Note</Button>
-      <Button onClick={()=>{setUpGuitar()}}>New Note</Button>
-      <h2>Try to match the note...</h2>
-      <p hidden={!check}>{note}</p>
+      <h1>Tone Match</h1>
+      <hr />
+      {createToneMatchItems()}
     </div>
   )
 }

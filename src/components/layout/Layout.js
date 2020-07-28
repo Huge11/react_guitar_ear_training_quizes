@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useLocation } from 'react-router-dom'
+
 
 import routes from 'routes.js'
 
 // component
 import { MDBNavbar, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown, 
-MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn } from "mdbreact";
+MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn as Button } from "mdbreact";
 
 
 function App(props) {
+  const [appOrder, setAppOrder] = useState(routes.map(route=>route.path))
+
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [navbarOpen, setNavbarOpen] = useState(false)
 
@@ -30,7 +33,7 @@ function App(props) {
       <div id="page-content-wrapper">
         {/* <-- START Topnav --> */}
         <MDBNavbar color="default-color" dark expand="md">
-          <MDBBtn onClick={toggleSidebar}>Toggle Sidebar</MDBBtn>
+          <Button onClick={toggleSidebar}>Toggle Sidebar</Button>
           <MDBNavbarToggler onClick={toggleNavbar} />
           <MDBCollapse id="navbarCollapse3" isOpen={navbarOpen} navbar>
             <MDBNavbarNav right>
@@ -62,10 +65,11 @@ function App(props) {
         {/* <-- END Topnav --> */}
 
         <div className="container-fluid pt-4">
-          <Switch>
-            { routes.map(route=><Route key={route.name} path={route.path} component={route.component} />) }
-          </Switch>
-
+          <Wizard paths={appOrder}>
+            <Switch>
+              { routes.map(route=><Route key={route.name} path={route.path} component={route.component} />) }
+            </Switch>
+          </Wizard>
         </div>
       </div>
     </div>
@@ -73,3 +77,16 @@ function App(props) {
 }
 
 export default App;
+
+
+function Wizard({paths, children}){
+  const current = paths.indexOf(useLocation().pathname)
+  return (
+    <div>
+      { children } 
+      <hr />
+      <Button color="primary" href={paths[current-1]} disabled={current < 1} >Back</Button>
+      <Button color="primary" href={paths[current+1]} disabled={current >= paths.length-1} >Next</Button>
+    </div>
+  )
+}

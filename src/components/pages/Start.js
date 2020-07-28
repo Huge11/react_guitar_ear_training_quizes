@@ -8,7 +8,7 @@ import {
 function Start(){
   return (
     <div>
-      <Button color="primary" href="/toneMatch">Let do this thing</Button>
+      <Button color="primary" href="/tuning">Let do this thing</Button>
     </div>
   )
 }
