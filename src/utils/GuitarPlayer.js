@@ -22,7 +22,7 @@ class Guitar {
     this.guitar.triggerAttack(cleanedTones)
   }
 
-  loopNote(tone='C2'){
+  loopNote(tone='C2', ){
     console.log(`looping note ${tone}`)
     Tone.Transport.cancel()
     Tone.Transport.scheduleRepeat((time) => {
@@ -46,6 +46,10 @@ class Guitar {
 
   stop(){
     Tone.Transport.pause()
+  }
+
+  clear(){
+    Tone.Transport.cancel()
   }
 
 }

@@ -10,6 +10,7 @@
     "fretboards": "^0.4.0",
     "mdbreact": "^4.27.0",
     "random": "^2.2.0",
+    "random-id": "^1.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

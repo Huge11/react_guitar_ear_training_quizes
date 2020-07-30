@@ -31,38 +31,7 @@ function App(props) {
 
       {/* <!-- Page Content --> */}
       <div id="page-content-wrapper">
-        {/* <-- START Topnav --> */}
-        <MDBNavbar color="default-color" dark expand="md">
-          <Button onClick={toggleSidebar}>Toggle Sidebar</Button>
-          <MDBNavbarToggler onClick={toggleNavbar} />
-          <MDBCollapse id="navbarCollapse3" isOpen={navbarOpen} navbar>
-            <MDBNavbarNav right>
-              <MDBNavItem active>
-                <MDBNavLink to="/start">Home</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="/start">Features</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="/start">Pricing</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBDropdown>
-                  <MDBDropdownToggle nav caret>
-                    <div className="d-none d-md-inline">Dropdown</div>
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu className="dropdown-default">
-                    <MDBDropdownItem href="/action">Action</MDBDropdownItem>
-                    <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-            </MDBNavbarNav>
-          </MDBCollapse>
-        </MDBNavbar>
-        {/* <-- END Topnav --> */}
+        <TopNav toggleSidebar={toggleSidebar} toggleNavbar={toggleNavbar} navbarOpen={navbarOpen} />
 
         <div className="container-fluid pt-4">
           <Wizard paths={appOrder}>
@@ -83,10 +52,50 @@ function Wizard({paths, children}){
   const current = paths.indexOf(useLocation().pathname)
   return (
     <div>
+      <Button color="primary" href={paths[current-1]} disabled={current < 1} >Back</Button>
+      <Button color="primary" href={paths[current+1]} disabled={current >= paths.length-1} >Next</Button>
+      <Button color='primary' href={paths[current]}>Reset</Button>
+      <hr />
       { children } 
       <hr />
       <Button color="primary" href={paths[current-1]} disabled={current < 1} >Back</Button>
       <Button color="primary" href={paths[current+1]} disabled={current >= paths.length-1} >Next</Button>
+      <Button color='primary' href={paths[current]}>Reset</Button>
     </div>
+  )
+}
+
+function TopNav({toggleNavbar, toggleSidebar, navbarOpen}){
+  return (
+    <MDBNavbar color="default-color" dark expand="md">
+      <Button  onClick={toggleSidebar}>Toggle Sidebar</Button>
+      <MDBNavbarToggler onClick={toggleNavbar} />
+      <MDBCollapse id="navbarCollapse3" isOpen={navbarOpen} navbar>
+        <MDBNavbarNav right>
+          <MDBNavItem active>
+            <MDBNavLink to="/start">Home</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/start">Features</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/start">Pricing</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBDropdown>
+              <MDBDropdownToggle nav caret>
+                <div className="d-none d-md-inline">Dropdown</div>
+              </MDBDropdownToggle>
+              <MDBDropdownMenu className="dropdown-default">
+                <MDBDropdownItem href="/action">Action</MDBDropdownItem>
+                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
+                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+              </MDBDropdownMenu>
+            </MDBDropdown>
+          </MDBNavItem>
+        </MDBNavbarNav>
+      </MDBCollapse>
+    </MDBNavbar>
   )
 }

@@ -25,13 +25,16 @@ function ChordMatch(){
     }
     return chords.map((chord, i)=>{
       const Positions = chord.positions
-      // console.log(Pos[random.int(0,chord.positions.length-1)].frets)
+      const position = Positions[random.int(0,chord.positions.length-1)]
+      console.log(chord)
       return chord ? (
         <div>
           <h2>#{i+1}</h2>
-          <Button onClick={()=>{guitar.loopFrets(Positions[random.int(0,chord.positions.length-1)].frets)}} >Play Chord</Button>
+          <Button onClick={()=>{guitar.loopFrets(position.frets)}} >Play Chord</Button>
           <Button onClick={()=>{guitar.stopPlaying()}} >Stop Chord</Button>
-          <Button onClick={(e)=>{e.target.innerText=`${chord.key} ${chord.suffix}`; e.target.disabled=true; guitar.stopPlaying()}} >Check Chord</Button>
+          <Button style={{textTransform: 'none'}} onClick={(e)=>{e.target.innerText=`${chord.suffix}`; e.target.disabled=true; guitar.stopPlaying()}} >CHECK QUALITY</Button>
+          <Button style={{textTransform: 'none'}} onClick={(e)=>{e.target.innerText=`${chord.key}`; e.target.disabled=true; guitar.stopPlaying()}} >CHECK TONIC</Button>
+          <Button style={{textTransform: 'none'}} onClick={(e)=>{e.target.innerText=`${position.frets}`; e.target.disabled=true; guitar.stopPlaying()}} >CHECK FRETS</Button>
         </div>
       ) : <p>Error</p>
     })

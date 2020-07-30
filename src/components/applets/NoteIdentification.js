@@ -17,24 +17,14 @@ import {
 
 function NoteIdentification(){
   const guitar = new Guitar()
-  const getFretNumber = () => random.int(0, 12)
-  const getNoteName = () => noteNames[random.int(0, noteNames.length-1)]
 
   const createNameThatFret = () => {
-    const data = string => {
-      const fret = getFretNumber()
-      return {string: string, fret: fret, answer: guitar.getFretByNum(string, fret).getNoteName()}
-    }
-    const inputs = [data(1), data(2), data(3), data(4), data(5), data(6)]
-    return inputs.map(input => <div><p><strong>String {input.string}: </strong> Fret #{input.fret}</p><Button onClick={(e)=>{e.target.innerText=input.answer; e.target.disabled=true}}>Answer</Button> </div>)
+    const frets = [guitar.getRandomFret(1), guitar.getRandomFret(2),guitar.getRandomFret(3),guitar.getRandomFret(4),guitar.getRandomFret(5),guitar.getRandomFret(6)]
+    return frets.map(fret => (<div key={fret.getId()} className="px-3"><p><strong>String: {fret.getStringNum()} -  Fret #{fret.getFretNum()}</strong></p><Button onClick={(e)=>{e.target.innerText=fret.getNoteName(); e.target.disabled=true}}>Answer</Button> </div>))
   }
   const createFindThatNote = () => {
-    const data = string => {
-      const noteName = getNoteName()
-      return {string: string, noteName: noteName, answer: guitar.getFretByNoteName(string, noteName).getFretNum()}
-    }
-    const inputs = [data(1), data(2), data(3), data(4), data(5), data(6)]
-    return inputs.map(input => <div><p><strong>String {input.string}: </strong> Note Name: {input.noteName.toUpperCase()}</p><Button onClick={(e)=>{e.target.innerText=`fret ${input.answer}`; e.target.disabled=true}}>Answer</Button> </div>)
+    const frets = [guitar.getRandomFret(1), guitar.getRandomFret(2),guitar.getRandomFret(3),guitar.getRandomFret(4),guitar.getRandomFret(5),guitar.getRandomFret(6)]
+    return frets.map(fret => <div key={fret.getId()} className='px-3'><p><strong>String: {fret.getStringNum()} - Note: {fret.getNoteName().toUpperCase()}</strong></p><Button onClick={(e)=>{e.target.innerText=`fret ${fret.getFretNum()}`; e.target.disabled=true}}>Answer</Button> </div>)
   }
   // ======== FRETBOARD WITH OCTAVES ====
   const [fb, setBoard] = useState(null)
@@ -42,37 +32,42 @@ function NoteIdentification(){
   useEffect(()=>{
     setBoard(Fretboard({ 
       where: "#fb1",
-      frets: 12,
+      frets: 24,
     }))
   }, [])
   // change the scale display whenever the state changes
   useEffect(() => {
     if(fb){
-      // fb.clear()
       fb.add(`A D`).paint();
     }
   }, [fb])
   // ======== END FRETBOARD
 
   return (
-    <Container>
+    <div>
       <h1>Note Identification</h1>
       <hr />
 
       <div id="fb1"></div>
-      <Row>
-        <Col>
-          <h2>Name That Fret</h2>
-          {createNameThatFret()}
-        </Col>
-        <Col>
-          <h2>Find The Note</h2>
-          {createFindThatNote()}
-        </Col>
-      </Row>
-
-
-    </Container>
+        <Row className="pt-5 pl-3">
+          <Col xs='12' sm='12' md='12' lg='6'>
+            <h2>Name That Fret</h2>
+            <Container>
+              <Row>
+                {createNameThatFret()}
+              </Row>
+            </Container>
+          </Col>
+          <Col>
+            <h2>Find The Note</h2>
+            <Container>
+              <Row>
+                {createFindThatNote()}
+              </Row>
+            </Container>
+          </Col>
+        </Row>
+    </div>
   )
 }
 

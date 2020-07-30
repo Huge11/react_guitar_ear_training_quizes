@@ -1,17 +1,21 @@
 import Fret from './Fret.js'
 // import noteNames from './noteNames.js'
 import toneList from './toneList'
+import randomId from 'random-id'
+
 
 
 export default class GuitarString {
-  constructor(tone){
-    this.frets = this.createFrets(tone)
-    // console.log(this.frets)
+  constructor(tone, stringNum){
+    this._id = randomId()
+    this.frets = this.createFrets(tone, stringNum)
+    this.stringNum = stringNum
+
   }
-  createFrets(tone){
+  getId(){return this._id}
+  createFrets(tone, stringNum){
     const tones = [...toneList.slice(toneList.indexOf(tone))]
-    // console.log(tones)
-    return tones.map((tone, index)=>new Fret(tone, index))
+    return tones.map((tone, index)=>new Fret(tone, index, stringNum))
   }
   getFretByNum(num){
     return this.frets[num]
