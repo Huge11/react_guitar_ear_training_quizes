@@ -73,15 +73,15 @@ function TopNav({toggleNavbar, toggleSidebar, navbarOpen}){
       <MDBCollapse id="navbarCollapse3" isOpen={navbarOpen} navbar>
         <MDBNavbarNav right>
           <MDBNavItem active>
-            <MDBNavLink to="/start">Home</MDBNavLink>
+            <MDBNavLink to="/start">App</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/start">Features</MDBNavLink>
+            <MDBNavLink to="/tuner/app" target="_blank">Tuner</MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem>
+          {/* <MDBNavItem>
             <MDBNavLink to="/start">Pricing</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
+          </MDBNavItem> */}
+          {/* <MDBNavItem>
             <MDBDropdown>
               <MDBDropdownToggle nav caret>
                 <div className="d-none d-md-inline">Dropdown</div>
@@ -93,7 +93,7 @@ function TopNav({toggleNavbar, toggleSidebar, navbarOpen}){
                 <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
-          </MDBNavItem>
+          </MDBNavItem> */}
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>

@@ -46,16 +46,16 @@ function ScalesPractice(){
 
   // function to create scale checkboxes
   const createScaleCheckboxes = () => {
+    const addOrRemoveScaleFromList = (e) => {
+      const scaleName = e.target.id
+      scaleList.indexOf(scaleName) != -1 ? setScaleList(scaleList.filter(item=>item != scaleName)) : setScaleList([...scaleList, scaleName])
+    }
     return Scales.map(scale => (
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id={`${scale}`} checked={scaleList.indexOf(scale) != -1} onChange={addOrRemoveScaleFromList} />
         <label class="custom-control-label" for={`${scale}`}>{scale}</label>
       </div>      
     ))
-  }
-  const addOrRemoveScaleFromList = (e) => {
-    const scaleName = e.target.id
-    scaleList.indexOf(scaleName) != -1 ? setScaleList(scaleList.filter(item=>item != scaleName)) : setScaleList([...scaleList, scaleName])
   }
 
 

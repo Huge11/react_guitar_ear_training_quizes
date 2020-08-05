@@ -45,7 +45,7 @@ function NoteIdentification(){
 
   return (
     <div>
-      <h1>Note Identification</h1>
+      <h1>Note Identification - Standard Tuning</h1>
       <hr />
 
       <div id="fb1"></div>

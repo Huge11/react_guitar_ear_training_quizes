@@ -8,18 +8,34 @@ import random from 'random'
 
 // components
 import { 
-  MDBBtn as Button
+  MDBBtn as Button,
+  MDBRow as Row,
+  MDBCol as Col
 } from 'mdbreact'
 
 
 function IntervalMatch(){
   const guitar = new Guitar()
   const intervalList = ["1P", "2m", "2M", "3m", "3M", "4P", "5P", "6m", "6M", "7m", "7M", "P8"]
+  const [intervalOptions, setIntervalOptions] = useState(intervalList)
+  const createIntervalCheckboxes = () => {
+    const addOrRemoveIntervalFromList = (e) => {
+      const intervalName = e.target.id
+      intervalOptions.indexOf(intervalName) != -1 ? setIntervalOptions(intervalOptions.filter(item=>item != intervalName)) : setIntervalOptions([...intervalOptions, intervalName])
+    }
+    return intervalList.map(interval => (
+      <div class="custom-control custom-checkbox" key="interval">
+        <input type="checkbox" class="custom-control-input" id={`${interval}`} checked={intervalOptions.indexOf(interval) != -1} onChange={addOrRemoveIntervalFromList} />
+        <label class="custom-control-label" for={`${interval}`}>{interval}</label>
+      </div>      
+    ))
+  }
+
   const createIntervalMatchItems = (max=10) => {
     const intervals = []
     // console.log(interval)
     for(let i=0; i<max; i++){
-      const interval = intervalList[random.int(0, intervalList.length-1)]
+      const interval = intervalOptions[random.int(0, intervalOptions.length-1)]
       const fret = guitar.getRandomFret()
       intervals.push([fret.getTone(), Note.transpose(fret.getTone(), interval), fret, interval])
     }
@@ -55,8 +71,21 @@ function IntervalMatch(){
   return (
     <div>
       <h1>Interval Match</h1>
+      <Row>
+        <Col sm="2">
+          {createIntervalCheckboxes()}
+        </Col>
+        <Col>
+        <h2>Levels</h2>
+          <Button onClick={()=>setIntervalOptions(["4P", "5P"])}>Easy</Button>
+          <Button onClick={()=>setIntervalOptions(["2M", "3M", "4P", "5P", "6M", "7M"])}>Medium</Button>
+          <Button onClick={()=>setIntervalOptions(["1P", "2m", "2M", "3m", "3M", "4P", "5P", "6m", "6M", "7m", "7M", "P8"])}>Hard</Button>
+        </Col>
+      </Row>
       <hr />
       {createIntervalMatchItems()}
+      <hr />
+ 
     </div>
   )
 }
