@@ -78,22 +78,6 @@ function TopNav({toggleNavbar, toggleSidebar, navbarOpen}){
           <MDBNavItem>
             <MDBNavLink to="/tuner/app" target="_blank">Tuner</MDBNavLink>
           </MDBNavItem>
-          {/* <MDBNavItem>
-            <MDBNavLink to="/start">Pricing</MDBNavLink>
-          </MDBNavItem> */}
-          {/* <MDBNavItem>
-            <MDBDropdown>
-              <MDBDropdownToggle nav caret>
-                <div className="d-none d-md-inline">Dropdown</div>
-              </MDBDropdownToggle>
-              <MDBDropdownMenu className="dropdown-default">
-                <MDBDropdownItem href="/action">Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </MDBNavItem> */}
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
