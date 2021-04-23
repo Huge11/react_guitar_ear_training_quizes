@@ -33,7 +33,7 @@ function App(props) {
       <div id="page-content-wrapper">
         <TopNav toggleSidebar={toggleSidebar} toggleNavbar={toggleNavbar} navbarOpen={navbarOpen} />
 
-        <div className="container-fluid pt-4">
+        <div className="container-fluid px-5 py-3">
           <Wizard paths={appOrder}>
             <Switch>
               { routes.map(route=><Route key={route.name} path={route.path} component={route.component} />) }

@@ -2,7 +2,7 @@ import React, {} from 'react';
 
 // components
 import { Switch, Route, Redirect } from 'react-router-dom'
-import LandingPage from 'components/pages/LandingPage.js'
+// import LandingPage from 'components/pages/LandingPage.js'
 import AppLayout from 'components/layout/Layout.js'
 
 function App() {
